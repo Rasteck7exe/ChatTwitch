@@ -1,55 +1,82 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #18181b;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: #fff;
+  background:url('https://images.pexels.com/photos/29721117/pexels-photo-29721117/free-photo-of-paisaje-melancolico-de-un-faro-en-blanco-y-negro.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load') ;
+  
 }
 
-#chat-container {
-    width: 400px;
-    max-height: 600px;
-    border: 2px solid #9146FF;
-    border-radius: 10px;
-    overflow-y: auto;
-    padding: 10px;
-    background: #1f1f23;
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: rgba(20, 20, 20, 0.2);
+  backdrop-filter: blur(5px);
+  border: 3px solid #6441a5;
+  border-radius: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
 }
 
-#chat-container h1 {
-    text-align: center;
-    font-size: 1.5em;
-    color: #9146FF;
+.message {
+  margin-bottom: 10px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  animation: fadein 0.3s;
 }
 
-#chat {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 10px;
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 5px;
 }
 
-.chat-message {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.badges {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
 }
 
-.chat-message img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.badge {
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
 }
 
-.chat-message .username {
-    font-weight: bold;
-    color: #9146FF;
+.username {
+  font-weight: bold;
+  color: #36cfc9;
+  margin-right: 5px;
 }
 
-.chat-message .message {
-    word-wrap: break-word;
-    max-width: 300px;
+.text {
+  color: #fff;
+  word-wrap: break-word;
+}
+
+.emote {
+  width: auto;
+  height: 1.2em;
+  /* Ajusta el tamaño de los emotes en línea */
+  vertical-align: middle;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
