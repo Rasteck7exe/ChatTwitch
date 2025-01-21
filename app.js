@@ -32,6 +32,52 @@ const emotesCache = {
 };
 const twitchChannelId = null; // se obtendrá dinámicamente
 
+// const Widget = {
+//   width: 0,
+//   height: 0,
+//   cooldown: false,
+//   raidActive: false,
+//   raidTimer: null,
+//   userMessageCount: {},
+//   soundEffects: [],
+//   messageCount: 0,
+//   pronouns: {},
+//   pronounsCache: {},
+//   channel: {},
+//   service: "",
+//   followCache: {},
+//   globalEmotes: {},
+// };
+
+// const GLOBAL_EMOTES = {
+//   ffz: {
+//     api: "https://api2.frankerfacez.com/v1/set/global",
+//     transformer: (response) => {
+//       const { default_sets, sets } = response;
+//       const emoteNames = [];
+//       for (const set of default_sets) {
+//         const { emoticons } = sets[set];
+//         for (const emote of emoticons) {
+//           emoteNames.push(emote.name);
+//         }
+//       }
+//       return emoteNames;
+//     },
+//   },
+//   bttv: {
+//     api: "https://api.betterttv.net/3/cached/emotes/global",
+//     transformer: (response) => {
+//       return response.map((emote) => emote.code);
+//     },
+//   },
+//   "7tv": {
+//     api: "https://api.7tv.app/v2/emotes/global",
+//     transformer: (response) => {
+//       return response.map((emote) => emote.name);
+//     },
+//   },
+// };
+
 // Obtener ID del canal para badges y emotes específicos del canal
 async function getChannelId(channelName) {
   const res = await fetch(
@@ -121,6 +167,8 @@ async function loadEmotes(channelId) {
 
   console.log("BadgeCache: ", badgeCache);
 }
+
+
 
 // Obtener el avatar de un usuario
 function getUserAvatar(userId) {
@@ -233,6 +281,13 @@ function replaceTwitchEmotes(message, emotes) {
 
   return regexReplaceEmotes(message, emoteCache);
 }
+const HexToRGBA = (hex, alpha) => {
+  const r = parseInt(hex.slice(1, 3), 16),
+    g = parseInt(hex.slice(3, 5), 16),
+    b = parseInt(hex.slice(5, 7), 16);
+
+  return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+};
 
 // Reemplaza palabras por emotes de BTTV y 7TV
 // function replaceThirdPartyEmotes(message) {
@@ -265,13 +320,13 @@ client.on("message", (channel, tags, message, self) => {
 
   // Reemplazar emotes (Twitch)
   let processedMsg = replaceTwitchEmotes(message, tags.emotes);
-  // console.log("
 
   // Obtener el avatar antes de mostrar el mensaje
   getUserAvatar(userId)
     .then((avatarUrl) => {
       const msgElem = document.createElement("div");
       msgElem.classList.add("message");
+      msgElem.style.backgroundColor = HexToRGBA(tags.color, 0.2);
 
       if (avatarUrl) {
         const avatarImg = document.createElement("img");
@@ -297,6 +352,8 @@ client.on("message", (channel, tags, message, self) => {
       userElem.textContent = displayName;
       userElem.style.color = tags.color;
 
+      console.log("color: ", tags.color);
+
       const textElem = document.createElement("span");
       textElem.classList.add("text");
       textElem.innerHTML = ": " + processedMsg;
@@ -305,10 +362,12 @@ client.on("message", (channel, tags, message, self) => {
       msgElem.appendChild(textElem);
 
       chatContainer.appendChild(msgElem);
+
+      //scroll to bottom
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
       // Limitar a 10
-      if (chatContainer.childNodes.length > 10) {
+      if (chatContainer.childNodes.length > 20) {
         chatContainer.removeChild(chatContainer.firstChild);
       }
     })

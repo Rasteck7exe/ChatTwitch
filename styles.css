@@ -3,34 +3,49 @@
   padding: 0;
   font-family: sans-serif;
   color: #fff;
-  background:url('https://images.pexels.com/photos/29721117/pexels-photo-29721117/free-photo-of-paisaje-melancolico-de-un-faro-en-blanco-y-negro.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load') ;
+  /* background:url('https://images.pexels.com/photos/1379636/pexels-photo-1379636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') ; */
   
 }
 
 .chat-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   overflow-y: auto;
+  scroll-behavior: smooth;
   background: rgba(20, 20, 20, 0.2);
   backdrop-filter: blur(5px);
   border: 3px solid #6441a5;
   border-radius: 15px;
   padding: 10px;
   box-sizing: border-box;
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
+  /* width: 544px; */
   min-height: 100vh;
+  max-height: 100vh;
 }
 
 .message {
   margin-bottom: 10px;
   padding: 5px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  animation: fadein 0.3s;
+  animation: slideUp 0.5s ease-out;
+  /* animation: fadein 0.3s; */
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .avatar {
@@ -57,11 +72,13 @@
   font-weight: bold;
   color: #36cfc9;
   margin-right: 5px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .text {
   color: #fff;
   word-wrap: break-word;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .emote {
